@@ -1,5 +1,11 @@
 <?php
 
+namespace App\Class;
+
+
+use Exception;
+use PDO;
+
 class DBConnect
 {
 
@@ -14,7 +20,6 @@ class DBConnect
         return $db;
 
     }
-
 
 
 }

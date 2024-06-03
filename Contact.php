@@ -1,4 +1,5 @@
 <?php
+namespace App\Class;
 
 class Contact
 {
@@ -6,7 +7,7 @@ class Contact
     private ?int $id;
     private ?string $name;
     private ?string $email;
-    private ?string  $phoneNumber;
+    private ?string $phoneNumber;
 
 
     public function __construct(?int $id, ?string $name, ?string $email, ?string $phoneNumber)
