@@ -45,7 +45,7 @@ class Command
         $contact = $contactManager->findById($id);
 
 
-        if ($contact == []){
+        if (!$contact){
             echo "Aucun contact correspondant à cet ID\n";
             return;
         }
@@ -60,6 +60,13 @@ class Command
             
         EOT;
 
+    }
+
+    public function delete(int $id): void
+    {
+        $db = DBConnect::getPDO();
+        $contactManager = new ContactManager($db);
+        $contactManager->deleteContactById($id);
     }
 
 

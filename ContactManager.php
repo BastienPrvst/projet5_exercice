@@ -22,24 +22,12 @@ class ContactManager
         return array_map(
             function ($contact) {
 
-                return $this->contactToString($this->mapContactFromArray($contact));
+                return $this->mapContactFromArray($contact);
 
             },
             $getContacts->fetchAll(PDO::FETCH_ASSOC)
         );
 
-    }
-
-    private function contactToString(Contact $contact): string
-    {
-        $i = [
-            "id" => $contact->getId(),
-            "name" => $contact->getName(),
-            "email" => $contact->getEmail(),
-            "phoneNumber" => $contact->getPhoneNumber(),
-        ];
-
-        return sprintf("{%s}, %s, %s, %s", $i['id'], $i['name'], $i['email'], $i['phoneNumber']);
     }
 
     private function mapContactFromArray(array $data): Contact
@@ -66,21 +54,21 @@ class ContactManager
         ]);
     }
 
-    public function findById(int $id): ?array
+    public function findById(int $id): false|array
     {
-        $lastID = $this->getLastID();
-
-        if ($id > $lastID){
-
-            return [];
-
-        }
-
         $getContact = $this->db->prepare("SELECT * FROM contact WHERE id = ?");
 
         $getContact->execute([$id]);
 
         return $getContact->fetch(PDO::FETCH_ASSOC);
+    }
+
+    public function deleteContactById(int $id): void
+    {
+        $deleteContact = $this->db->prepare("DELETE FROM contact WHERE id = ?");
+
+        $deleteContact->execute([$id]);
+
     }
 
 

@@ -59,10 +59,16 @@ class Contact
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function toString(): string
+    public function __toString(): string
     {
-        //TODO
-        return "";
+        $i = [
+            "id" => $this->getId(),
+            "name" => $this->getName(),
+            "email" => $this->getEmail(),
+            "phoneNumber" => $this->getPhoneNumber(),
+        ];
+
+        return sprintf("{%s}, %s, %s, %s", $i['id'], $i['name'], $i['email'], $i['phoneNumber']);
     }
 
 }

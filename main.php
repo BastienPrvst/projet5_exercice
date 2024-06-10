@@ -8,10 +8,9 @@ while (true) {
 
     $line = readline("Entrez votre commande (help, list, detail [id], create, delete, quit) :");
 
-    $detailPatern = "/\bdetail\s\d+/";
-
-    //Si list
     if ($line == "list"){
+
+        //Code pour List
 
         $allContacts = $command->list();
         echo "{ID} | Nom | Email | Télephone\n";
@@ -20,6 +19,8 @@ while (true) {
         }
 
     } elseif ($line == 'help') {
+
+        //Code pour help
 
         echo <<<EOT
 
@@ -38,22 +39,41 @@ while (true) {
 
     } elseif ($line == 'create') {
 
+        //Code pour create
+
         $name = readline("Veuillez saisir le nom :");
         $email = readline("Veuillez saisir le mail :");
         $phone = readline("Veuillez saisir le numéro de téléphone : ");
 
         $command->create($name, $email, $phone);
 
-    } elseif (preg_match($detailPatern, $line)) {
+    } elseif (preg_match("/\bdetail\s(\d+)/", $line, $matches)) {
 
-        //Code pour detail + id
-        $id = explode( " ", $line);
+        //Code pour detail
 
-        $command->detail($id[1]);
+        $command->detail($matches[1]);
 
-    } elseif ($line == 'delete') {
+    } elseif (preg_match("/\bdelete\s(\d+)/", $line, $matches)) {
 
-        echo 'pouet';
+        //Code pour delete
+
+        $delete = null;
+
+        while ($delete !== 'y' && $delete !== 'n') {
+
+            $delete = readline("Voulez-vous vraiment supprimer ce contact ? y/n: ");
+
+            echo "Veuillez saisir 'y' pour oui ou 'n' pour non.\n";
+
+        }
+
+        if ($delete == "y") {
+
+            $command->delete($matches[1]);
+            echo "Contact supprimé !\n";
+        }else{
+            echo "Suppression annulée. \n";
+        }
 
     } elseif ($line == 'quit') {
         break;
