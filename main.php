@@ -6,7 +6,9 @@ $command = new Command();
 
 while (true) {
 
-    $line = readline("Entrez votre commande (help, list, detail, create, delete, quit) :");
+    $line = readline("Entrez votre commande (help, list, detail [id], create, delete, quit) :");
+
+    $detailPatern = "/\bdetail\s\d+/";
 
     //Si list
     if ($line == "list"){
@@ -42,11 +44,20 @@ while (true) {
 
         $command->create($name, $email, $phone);
 
+    } elseif (preg_match($detailPatern, $line)) {
+
+        //Code pour detail + id
+        $id = explode( " ", $line);
+
+        $command->detail($id[1]);
+
     } elseif ($line == 'delete') {
+
+        echo 'pouet';
 
     } elseif ($line == 'quit') {
         break;
-    }else{
+    } else {
         echo "Vous avez saisi : $line\n";
     }
 

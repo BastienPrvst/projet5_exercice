@@ -36,4 +36,31 @@ class Command
         EOT;
 
     }
+
+    public function detail(int $id): void
+    {
+
+        $db = DBConnect::getPDO();
+        $contactManager = new ContactManager($db);
+        $contact = $contactManager->findById($id);
+
+
+        if ($contact == []){
+            echo "Aucun contact correspondant à cet ID\n";
+            return;
+        }
+
+        echo <<<EOT
+            
+            Informations du contact correspondant à l'id $id :
+            Nom :  $contact[name]
+            Email : $contact[email]
+            Téléphone : $contact[phone_number] 
+            
+            
+        EOT;
+
+    }
+
+
 }

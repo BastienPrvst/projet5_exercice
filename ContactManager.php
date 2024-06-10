@@ -65,4 +65,23 @@ class ContactManager
             $phoneNumber
         ]);
     }
+
+    public function findById(int $id): ?array
+    {
+        $lastID = $this->getLastID();
+
+        if ($id > $lastID){
+
+            return [];
+
+        }
+
+        $getContact = $this->db->prepare("SELECT * FROM contact WHERE id = ?");
+
+        $getContact->execute([$id]);
+
+        return $getContact->fetch(PDO::FETCH_ASSOC);
+    }
+
+
 }
