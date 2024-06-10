@@ -1,11 +1,5 @@
 <?php
 
-namespace App\Class;
-
-
-use Exception;
-use PDO;
-
 class DBConnect
 {
 

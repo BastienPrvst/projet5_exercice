@@ -42,9 +42,6 @@ while (true) {
 
         $command->create($name, $email, $phone);
 
-        echo $name . " | email : " . $email . " | phone : " . $phone . "\n";
-
-
     } elseif ($line == 'delete') {
 
     } elseif ($line == 'quit') {
